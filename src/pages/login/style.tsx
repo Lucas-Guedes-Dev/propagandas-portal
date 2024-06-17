@@ -6,7 +6,7 @@ export const Container = styled.div`
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-color: rgb(230, 230, 230);
+    background-color: ${(props) => props.theme.colors.background};
 `;
 
 export const ContainerForm = styled.div`
@@ -26,12 +26,47 @@ export const ContainerElements = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     flex: 1;
 `;
 
+export const ContainerImage = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex: 1;
+    
+    @media (max-width: 600px) {
+        display: none;
+    } 
+`;
+
+export const ContainerInputs = styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    flex: 2;
+    width: 100%;
+    height: 100%;
+    gap: 20px;
+`;
+
 export const MovingImage = styled.img<{ offsetX: number; offsetY: number }>`
-  position: absolute;
-  max-width: 100px;
-  transform: translate(${props => props.offsetX}px, ${props => props.offsetY}px);
-  transition: transform 0.1s ease-out;
+    position: absolute;
+    max-width: 250px;
+    transform: translate(${props => props.offsetX}px, ${props => props.offsetY}px);
+    transition: transform 0.1s ease-out;
+`;
+
+export const ContainerTitleLogin = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0.3;
+`;
+
+export const TitleLogin = styled.h2`
+    color: ${(props) => props.theme.colors.text};
 `;

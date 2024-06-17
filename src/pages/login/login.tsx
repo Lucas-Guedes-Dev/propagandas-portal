@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { Container, ContainerElements, ContainerForm, MovingImage } from "./style";
+import { Container, ContainerElements, ContainerForm, ContainerImage, ContainerInputs, ContainerTitleLogin, MovingImage, TitleLogin } from "./style";
 import imgLogin from '../../assets/pagina-de-login.png';
+import InputLogin from "../../components/input-login/input-login";
 
 const Login: React.FC = () => {
 
     const [offset, setOffset] = useState({ offsetX: 0, offsetY: 0 });
+    const [username, setUsername] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
 
     const handleMouseMove = (e: React.MouseEvent) => {
         const x = e.clientX;
@@ -19,15 +22,38 @@ const Login: React.FC = () => {
     return (
         <Container>
             <ContainerForm>
-                <ContainerElements onMouseMove={handleMouseMove}>
+                <ContainerImage onMouseMove={handleMouseMove}>
                     <MovingImage
                         src={imgLogin}
                         alt="Imagem que se move"
                         offsetX={offset.offsetX}
                         offsetY={offset.offsetY}
                     />
+                </ContainerImage>
+                <ContainerElements >
+                    <ContainerTitleLogin>
+                        <TitleLogin>
+                            Action Login
+                        </TitleLogin>
+                    </ContainerTitleLogin>
+                    <ContainerInputs>
+                        <InputLogin
+                            icon="user"
+                            onChangeText={(text) => { setUsername(text) }}
+                            placeholder="Usuário"
+                            text={username}
+                        />
+
+                        <InputLogin
+                            icon="lock"
+                            onChangeText={(text) => { setPassword(text) }}
+                            placeholder="Senha"
+                            text={password}
+                            type="password"
+                        />
+                    </ContainerInputs>
+
                 </ContainerElements>
-                <ContainerElements></ContainerElements>
             </ContainerForm>
         </Container>
     );
