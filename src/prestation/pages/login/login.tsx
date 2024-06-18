@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container, ContainerElements, ContainerForm, ContainerImage, ContainerInputs, ContainerTitleLogin, MovingImage, TitleLogin } from "./style";
 import imgLogin from '../../assets/pagina-de-login.png';
 import InputLogin from "../../components/input-login/input-login";
+import { fecthAuthLogin } from "../../../api/services/auth-service";
 
 const Login: React.FC = () => {
 
@@ -18,6 +19,16 @@ const Login: React.FC = () => {
 
         setOffset({ offsetX, offsetY });
     };
+
+    const onClickLogin = async () => {
+        const response = await fecthAuthLogin(
+            {
+                password: password,
+                username: username
+            }
+        )
+        console.log(response, 'ola');
+    }
 
     return (
         <Container>
@@ -52,7 +63,7 @@ const Login: React.FC = () => {
                             type="password"
                         />
                     </ContainerInputs>
-
+                    <button onClick={onClickLogin}>login</button>
                 </ContainerElements>
             </ContainerForm>
         </Container>

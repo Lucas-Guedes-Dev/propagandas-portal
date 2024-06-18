@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoutes from "../components/private-route/private-route";
 import Login from "../pages/login/login";
+import React from "react";
 
-export default function Router() {
+const Router: React.FC = () => {
     return (
         <BrowserRouter>
             <Routes>
@@ -16,3 +17,5 @@ export default function Router() {
         </BrowserRouter>
     );
 }
+
+export default Router;

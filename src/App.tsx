@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import Router from './routes/routes';
-import { darkTheme, lightTheme } from './theme/theme';
+import Router from './prestation/routes/routes';
+import { lightTheme } from './prestation/theme/theme';
 import { ThemeProvider } from 'styled-components';
 
 const App: React.FC = () => {
-  const [theme, setTheme] = useState(lightTheme);
+  const [theme] = useState(lightTheme);
 
-  const toggleTheme = () => {
-    setTheme(theme === lightTheme ? darkTheme : lightTheme);
-  };
+  // const toggleTheme = () => {
+  //   setTheme(theme === lightTheme ? darkTheme : lightTheme);
+  // };
 
   return (
     <ThemeProvider theme={theme}>
