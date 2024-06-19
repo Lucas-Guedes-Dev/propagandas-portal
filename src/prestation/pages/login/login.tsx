@@ -1,14 +1,24 @@
 import React, { useState } from "react";
-import { Container, ContainerElements, ContainerForm, ContainerImage, ContainerInputs, ContainerTitleLogin, MovingImage, TitleLogin } from "./style";
-import imgLogin from '../../assets/pagina-de-login.png';
+import { Container, ContainerElements, ContainerForm, ContainerImage, ContainerInputs, ContainerTitleLogin, TitleLogin } from "./style";
+import imgLogin from '../../assets/LOGO.svg';
 import InputLogin from "../../components/input-login/input-login";
-import { fecthAuthLogin } from "../../../api/services/auth-service";
+import { login } from "../../../api/services/auth-service";
+import MovingImage from "../../components/moving-image/moving-image";
+import { Button } from "../../components/button/button";
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useToken } from "../../../store/auth-token";
+import { AuthResponse } from "../../../core/entities/auth";
+import { usePage } from "../../../store/last-page";
+import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
-
     const [offset, setOffset] = useState({ offsetX: 0, offsetY: 0 });
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const { page } = usePage();
+    const { setToken } = useToken();
+    const navigate = useNavigate();
 
     const handleMouseMove = (e: React.MouseEvent) => {
         const x = e.clientX;
@@ -21,14 +31,24 @@ const Login: React.FC = () => {
     };
 
     const onClickLogin = async () => {
-        const response = await fecthAuthLogin(
-            {
+        try {
+            const response: AuthResponse = await login({
                 password: password,
                 username: username
+            });
+
+            if (response.access) {
+                setToken(response.access_token);
+                navigate(page);
             }
-        )
-        console.log(response, 'ola');
-    }
+        } catch (error: any) {
+            if (error.response.status === 401) {
+                toast('Usuário ou senha inválidos.', {
+                    type: 'error'
+                });
+            }
+        }
+    };
 
     return (
         <Container>
@@ -41,10 +61,10 @@ const Login: React.FC = () => {
                         offsetY={offset.offsetY}
                     />
                 </ContainerImage>
-                <ContainerElements >
+                <ContainerElements>
                     <ContainerTitleLogin>
                         <TitleLogin>
-                            Action Login
+                            Login
                         </TitleLogin>
                     </ContainerTitleLogin>
                     <ContainerInputs>
@@ -54,7 +74,6 @@ const Login: React.FC = () => {
                             placeholder="Usuário"
                             text={username}
                         />
-
                         <InputLogin
                             icon="lock"
                             onChangeText={(text) => { setPassword(text) }}
@@ -63,9 +82,22 @@ const Login: React.FC = () => {
                             type="password"
                         />
                     </ContainerInputs>
-                    <button onClick={onClickLogin}>login</button>
+                    <Button onPress={onClickLogin} text="Login" />
                 </ContainerElements>
             </ContainerForm>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+            />
         </Container>
     );
 }

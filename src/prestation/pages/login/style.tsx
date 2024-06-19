@@ -6,7 +6,7 @@ export const Container = styled.div`
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-color: ${(props) => props.theme.colors.background};
+    background-color: ${(props) => props.theme.colors.backgroundLogin};
 `;
 
 export const ContainerForm = styled.div`
@@ -16,7 +16,7 @@ export const ContainerForm = styled.div`
     width: 50%;
     height: 60%;
     border-radius: 8px;
-    background-color: white;
+    background-color: ${(props) => props.theme.colors.background};
     box-shadow: 0px 7px 42px -12px rgba(0,0,0,0.12);
     -webkit-box-shadow: 0px 7px 42px -12px rgba(0,0,0,0.12);
     -moz-box-shadow: 0px 7px 42px -12px rgba(0,0,0,0.12);
@@ -28,6 +28,7 @@ export const ContainerElements = styled.div`
     justify-content: center;
     flex-direction: column;
     flex: 1;
+    gap: 20px;
 `;
 
 export const ContainerImage = styled.div`

@@ -1,8 +1,11 @@
 export const lightTheme = {
     colors: {
-        primary: 'white',
-        background: 'rgb(230,230,230)',
-        text: '#000000',
+        backgroundLogin: '#bcbccc',
+        background: '#FDFFFC',
+        text: '#33333',
+        supportColor: "#0000CC",
+        secondSupportColor: "#4CB944",
+        errorColor: "#CF5C36",
         button: {
             text: '#ffffff',
             background: '#6200ee'

@@ -3,4 +3,7 @@ export interface AuthData {
   password: string;
 }
 
-export interface AuthResponse {}
+export interface AuthResponse {
+  access: boolean;
+  access_token: string;
+}

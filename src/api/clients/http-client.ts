@@ -9,4 +9,3 @@ export const post = async <T>(url: string, data: object): Promise<T> => {
   const response = await axiosInstance.post<T>(url, data);
   return response.data;
 };
-// Outros métodos como post, put, delete podem ser adicionados aqui.
