@@ -3,6 +3,7 @@ import { Body, ButtonCollapsed, Container, ContainerLogo, Header } from "./style
 import { FaChevronLeft } from "react-icons/fa6";
 import { useTheme } from "styled-components";
 import imgAction from '../../assets/LOGOLIGHT.svg';
+import AcordionMenu from "../acordion-menu/acordion-menu";
 
 const SideMenu: React.FC = () => {
     const [collapsed, setCollapsed] = useState<boolean>(true);
@@ -14,6 +15,7 @@ const SideMenu: React.FC = () => {
                 <ContainerLogo>
                     <img
                         src={imgAction}
+                        alt="logo"
                         width={'70%'}
                     />
                 </ContainerLogo>
@@ -22,7 +24,12 @@ const SideMenu: React.FC = () => {
                 </ButtonCollapsed>
             </Header>
             <Body>
-
+                <AcordionMenu
+                    buttons={[{ path: '/login', text: 'Teste' }]}
+                    defaultExpanded={false}
+                    headerAccordion="Login"
+                    menuExpanded={collapsed}
+                />
             </Body>
         </Container>
     )

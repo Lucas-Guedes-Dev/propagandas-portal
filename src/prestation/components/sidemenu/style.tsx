@@ -56,7 +56,8 @@ export const ContainerLogo = styled.div`
 export const Body = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
     flex: 10;
+    width: 100%;
 `;
