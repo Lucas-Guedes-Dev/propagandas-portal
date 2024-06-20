@@ -6,10 +6,6 @@ import { ThemeProvider } from 'styled-components';
 const App: React.FC = () => {
   const [theme] = useState(lightTheme);
 
-  // const toggleTheme = () => {
-  //   setTheme(theme === lightTheme ? darkTheme : lightTheme);
-  // };
-
   return (
     <ThemeProvider theme={theme}>
       <Router />

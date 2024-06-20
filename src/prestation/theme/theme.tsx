@@ -2,6 +2,7 @@ export const lightTheme = {
     colors: {
         backgroundLogin: '#bcbccc',
         background: '#FDFFFC',
+        secondBackground: "#1E1926",
         text: '#33333',
         supportColor: "#0000CC",
         secondSupportColor: "#4CB944",
@@ -20,23 +21,3 @@ export const lightTheme = {
         code: 'monospace'
     }
 };
-
-// export const darkTheme = {
-//     colors: {
-//         primary: '#bb86fc',
-//         background: '#121212',
-//         text: '#ffffff',
-//         button: {
-//             text: '#ffffff',
-//             background: '#bb86fc'
-//         },
-//         input: {
-//             text: 'black',
-//             background: 'rgb(180, 180, 180)'
-//         }
-//     },
-//     fonts: {
-//         main: 'Helvetica, Arial, sans-serif',
-//         code: 'monospace'
-//     }
-// };
