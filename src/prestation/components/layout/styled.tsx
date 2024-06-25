@@ -25,5 +25,6 @@ export const ContainerBody = styled.div`
     justify-content: center;
     align-items: center;
     flex: 10;
+    width: 100%;
 `;
 

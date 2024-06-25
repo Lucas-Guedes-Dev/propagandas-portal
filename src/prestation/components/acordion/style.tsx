@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { ContentAccordionType } from "../../types/styled-types";
 
 export const Button = styled.button`
-     display: flex;
+    display: flex;
     align-items: center;
     justify-content: flex-start;
     flex: 1;
@@ -20,10 +20,11 @@ export const Button = styled.button`
     }
 `;
 
-export const AccordionStyled = styled.div`
-  background-color: transparent;
-  color: ${(props) => props.theme.colors.background};
-  width: 100%;
+export const AccordionStyled = styled.div<ContentAccordionType>`
+    background-color: transparent;
+    color: ${(props) => props.theme.colors.background};
+    width: 100%;
+    border-bottom: 2px solid ${(props) => props.expanded ? 'rgba(255, 255, 255, 0.056)' : 'transparent'};
 `;
 
 export const AccordionHeader = styled.button`
@@ -32,6 +33,7 @@ export const AccordionHeader = styled.button`
     justify-content: flex-start;
     cursor: pointer;
     padding: 15px;
+    padding-left: 25px;
     color: ${(props) => props.theme.colors.background};
     font-size: large;
     font-weight: bold;
@@ -45,11 +47,19 @@ export const AccordionHeader = styled.button`
 `;
 
 export const AccordionContent = styled.div<ContentAccordionType>`
-  overflow: hidden;
-  transition: max-height 0.5s ease-out;
-  color: ${(props) => props.theme.colors.background};
-  max-height: ${(props) => (props.expanded ? "1000px" : "0")};
-  width: 100%;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+    transition: min-height 0.5s ease-out;
+    color: ${(props) => props.theme.colors.background};
+    background-color: rgba(255, 255, 255, 0.056);
+    max-height: ${(props) => (props.expanded ? `${props.maxHeight}px` : "0")};
+    width: 100%;
+
+    ${(props) =>
+        props.expanded &&
+        css`
+            max-height: 1000px;
+        `}
 `;
 
 export const ContainerTextHeader = styled.div`
@@ -63,13 +73,12 @@ export const ContainerIconChevron = styled.div<ContentAccordionType>`
     display: flex;
     align-items: center;
     justify-content: center;
-    flex: 2;
+    flex: 1;
     transition: transform 0.5s ease;
-
 
     ${(props) =>
         props.expanded &&
         css`
-            transform: rotate(-180deg);
+            transform: rotate(-90deg);
         `}
 `;

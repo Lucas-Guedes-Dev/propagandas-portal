@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import { Body, ButtonCollapsed, Container, ContainerLogo, Header } from "./style";
-import { FaChevronLeft } from "react-icons/fa6";
+import { MdOutlineMenu } from "react-icons/md";
 import { useTheme } from "styled-components";
 import imgAction from '../../assets/LOGOLIGHT.svg';
-import AcordionMenu from "../acordion-menu/acordion-menu";
+import SectionMenu from "../section-menu/section-menu";
+import { BsFillPersonCheckFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 const SideMenu: React.FC = () => {
     const [collapsed, setCollapsed] = useState<boolean>(true);
     const theme = useTheme();
+    const navigate = useNavigate();
 
     return (
         <Container collapsed={collapsed}>
             <Header>
-                <ContainerLogo>
+                <ContainerLogo onClick={() => navigate('/home')}>
                     <img
                         src={imgAction}
                         alt="logo"
@@ -20,15 +23,15 @@ const SideMenu: React.FC = () => {
                     />
                 </ContainerLogo>
                 <ButtonCollapsed collapsed={collapsed} onClick={() => setCollapsed(!collapsed)}>
-                    <FaChevronLeft color={theme.colors.backgroundLogin} size={30} />
+                    <MdOutlineMenu color={theme.colors.backgroundLogin} size={30} />
                 </ButtonCollapsed>
             </Header>
             <Body>
-                <AcordionMenu
-                    buttons={[{ path: '/login', text: 'Teste' }]}
-                    defaultExpanded={false}
-                    headerAccordion="Login"
-                    menuExpanded={collapsed}
+                <SectionMenu
+                    icon={<BsFillPersonCheckFill color={theme.colors.background} size={30} />}
+                    path="/clientes"
+                    text="Clientes"
+                    collapsed={collapsed}
                 />
             </Body>
         </Container>

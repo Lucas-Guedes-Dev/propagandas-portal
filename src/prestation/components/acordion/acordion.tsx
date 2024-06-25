@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AccordionStyled, AccordionHeader, AccordionContent, Button, ContainerTextHeader, ContainerIconChevron } from './style';
 import { useNavigate } from 'react-router-dom';
-import { LuPanelTopOpen } from "react-icons/lu";
+import { FaChevronLeft } from "react-icons/fa";
 import { useTheme } from 'styled-components';
 
 interface ButtonProps {
@@ -30,7 +30,7 @@ const AccordionMenu: React.FC<AccordionProps> = (props) => {
     };
 
     return (
-        <AccordionStyled >
+        <AccordionStyled expanded={!expanded} >
             <AccordionHeader disabled={props.menuExpanded} onClick={toggleAccordion}>
                 {!props.menuExpanded &&
                     <ContainerTextHeader>
@@ -38,11 +38,11 @@ const AccordionMenu: React.FC<AccordionProps> = (props) => {
                     </ContainerTextHeader>
                 }
                 <ContainerIconChevron expanded={expanded}>
-                    <LuPanelTopOpen size={22} color={theme.colors.background} />
+                    <FaChevronLeft size={22} color={theme.colors.background} />
                 </ContainerIconChevron>
             </AccordionHeader>
             {!props.menuExpanded &&
-                <AccordionContent expanded={expanded}>
+                <AccordionContent maxHeight={expanded ? '1000' : '0'} expanded={expanded}>
                     {props.buttons.map((item, index) => (
                         <Button key={index} onClick={() => onButtonClicked(item.path)}>
                             {item.text}

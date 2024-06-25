@@ -29,7 +29,7 @@ export const ButtonCollapsed = styled.button<SideMenuType>`
     width: 80px;
     height: 100%;
     border: 0px;
-    transition: transform 0.5s ease;
+    transition: transform 0.8s ease;
     background-color: transparent;
 
     &:active{

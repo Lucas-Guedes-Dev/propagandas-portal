@@ -4,4 +4,5 @@ export interface SideMenuType {
 
 export interface ContentAccordionType {
     expanded: boolean;
+    maxHeight?: string;
 }
