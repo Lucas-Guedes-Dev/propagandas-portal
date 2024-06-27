@@ -7,4 +7,5 @@ export const Container = styled.div`
     height: 95%;
     width: 95%;
     background-color: ${(props) => props.theme.colors.background};
+    overflow-y: hidden;
 `;
