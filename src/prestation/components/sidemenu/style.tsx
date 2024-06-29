@@ -7,7 +7,7 @@ export const Container = styled.div<SideMenuType>`
     justify-content: center;
     flex-direction: column;
     height: 100%;
-    width: ${(props) => (props.collapsed ? '5%' : '23%')};
+    width: ${(props) => (props.collapsed ? '80px' : '300px')};
     background-color: ${(props) => props.theme.colors.secondBackground};
     transition: width 0.3s ease; 
 `;

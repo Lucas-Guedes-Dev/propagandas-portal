@@ -4,7 +4,8 @@ import Login from "../pages/login/login";
 import React from "react";
 import Home from "../pages/home/home";
 import Layout from "../components/layout/layout";
-import Clients from "../pages/clients/clients";
+import ListClients from "../pages/list-clients/list-client";
+import { EditClient } from "../pages/form-client/form-client";
 
 const Router: React.FC = () => {
     const token = localStorage.getItem('token');
@@ -13,9 +14,10 @@ const Router: React.FC = () => {
         <BrowserRouter>
             <Routes>
                 <Route element={<Login />} path="/login" />
-                <Route path="/" element={token ? <Navigate to="/home" /> : <Navigate to="/login" />} />
 
                 <Route element={<PrivateRoutes />}>
+                    <Route path="/" element={token ? <Navigate to="/home" /> : <Navigate to="/login" />} />
+
                     <Route index path="/home"
                         element={
                             <Layout>
@@ -24,7 +26,13 @@ const Router: React.FC = () => {
                         } />
                     <Route path="/clientes" element={
                         <Layout>
-                            <Clients />
+                            <ListClients />
+                        </Layout>
+                    } />
+
+                    <Route path="/editar/cliente/:client_id" element={
+                        <Layout>
+                            <EditClient />
                         </Layout>
                     } />
                     <Route path="*" element={<div>not found</div>} />

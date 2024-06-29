@@ -1,17 +1,25 @@
 import React from "react";
-import { Body, Column, ColumnHeader, Header, LineHeader, Line, TableContainer, TextHeader, ContainerNotFound, LabelNotFound } from "./style";
+import { Body, Column, ColumnHeader, Header, LineHeader, Line, TableContainer, TextHeader, ContainerNotFound, LabelNotFound, ButtonEditar } from "./style";
 import NotFound from '../../assets/not-found.png';
-import { FaToggleOff } from "react-icons/fa6";
-import { FaToggleOn } from "react-icons/fa";
+import { TiInputChecked } from "react-icons/ti";
+import { ImCheckboxUnchecked } from "react-icons/im";
 import { useTheme } from "styled-components";
+import { FaPenAlt } from "react-icons/fa";
 
 interface TableProps {
     columns: { key: string, header: string | React.ReactNode }[],
-    lines: { [key: string]: any }[]
+    lines: { [key: string]: any }[],
+    onEdit?: (id: number) => void;
 }
 
 const Table: React.FC<TableProps> = (props) => {
     const theme = useTheme();
+
+    const onEditClicked = (id: number) => {
+        if (props.onEdit) {
+            props.onEdit(id)
+        }
+    }
 
     return (
         <TableContainer>
@@ -37,9 +45,15 @@ const Table: React.FC<TableProps> = (props) => {
                             {props.columns.map((column) => (
                                 <Column key={column.key}>
                                     {typeof line[column.key] === 'boolean' ? (
-                                        line[column.key] ? <FaToggleOn size={30} color={theme.colors.secondSupportColor} /> : <FaToggleOff size={30} color={theme.colors.errorColor} />
+                                        line[column.key] ? <TiInputChecked size={30} color={theme.colors.secondSupportColor} /> : <ImCheckboxUnchecked size={30} color={theme.colors.errorColor} />
                                     ) : (
-                                        line[column.key]
+                                        column.key === 'id' ? (
+                                            <ButtonEditar onClick={() => onEditClicked(line[column.key])}>
+                                                <FaPenAlt size={20} />
+                                            </ButtonEditar>
+                                        ) : (
+                                            line[column.key]
+                                        )
                                     )}
                                 </Column>
                             ))}

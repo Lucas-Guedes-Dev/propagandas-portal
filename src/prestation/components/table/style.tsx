@@ -19,7 +19,7 @@ export const LineHeader = styled.tr`
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    flex: 1;
+    width: 100%;
     border-top-right-radius: 16px;
     border-top-left-radius: 16px;
     background-color: ${(props) => props.theme.colors.secondBackground};
@@ -32,7 +32,6 @@ export const Body = styled.tbody`
     justify-content: flex-start;
     flex-direction: column;
     width: 100%;
-    flex: 1;
     overflow-y: auto;
     height: 65vh;
     max-height: 65vh;
@@ -47,7 +46,9 @@ export const ColumnHeader = styled.th`
     align-items: center;
     justify-content: center;
     flex: 1;
-    padding-block: 1%;
+    padding: 1%;
+    word-break: break-word;
+    text-align: center;
 `;
 
 export const TextHeader = styled.label`
@@ -59,11 +60,10 @@ export const Line = styled.tr`
     display: flex;
     align-items: center;
     justify-content: center;
-    flex: 1;
     width: 100%;
     max-height: 40px;
     border-bottom: 1px solid rgba(130,130,130, 0.156);
-    padding-block: 2%;
+    padding: 2%;
 `;
 
 export const Column = styled.td`
@@ -71,7 +71,8 @@ export const Column = styled.td`
     align-items: center;
     justify-content: center;
     flex: 1;
-    max-width: 250px;
+    word-break: break-word;
+    text-align: center;
 `;
 
 export const ContainerNotFound = styled.div`
@@ -87,4 +88,15 @@ export const LabelNotFound = styled.label`
     font-size: larger;
     font-weight: bold;
     color: ${(props) => props.theme.colors.errorColor};
-` 
+`;
+
+export const ButtonEditar = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    color: ${(props) => props.theme.colors.secondSupportColor};
+    &:active{
+        color: ${(props) => props.theme.colors.supportColor};
+    }
+`;

@@ -1,5 +1,5 @@
 export interface PersonParam {
-  id?: number;
+  id?: string;
   is_client?: boolean;
   is_employe?: boolean;
   is_driver?: boolean;
