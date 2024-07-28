@@ -31,6 +31,14 @@ export const CardHeader = styled.div`
     border-bottom: 1px solid ${props => props.theme.colors.backgroundLogin};
 `;
 
+export const CardColumn = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex: 1;
+`;
+
 export const CardLine = styled.div`
     display: flex;
     align-items: center;

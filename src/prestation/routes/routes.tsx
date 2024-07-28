@@ -5,7 +5,9 @@ import React from "react";
 import Home from "../pages/home/home";
 import Layout from "../components/layout/layout";
 import ListClients from "../pages/list-clients/list-client";
-import { EditClient } from "../pages/form-client/form-client";
+import ListAds from "../pages/list-ads/list-ads";
+import ListUsers from "../pages/list-users/list-users";
+import FormClient from "../pages/form-client/form-client";
 
 const Router: React.FC = () => {
     const token = localStorage.getItem('token');
@@ -32,7 +34,19 @@ const Router: React.FC = () => {
 
                     <Route path="/editar/cliente/:client_id" element={
                         <Layout>
-                            <EditClient />
+                            <FormClient />
+                        </Layout>
+                    } />
+
+                    <Route path="/propagandas" element={
+                        <Layout>
+                            <ListAds />
+                        </Layout>
+                    } />
+
+                    <Route path="/usuarios" element={
+                        <Layout>
+                            <ListUsers />
                         </Layout>
                     } />
                     <Route path="*" element={<div>not found</div>} />

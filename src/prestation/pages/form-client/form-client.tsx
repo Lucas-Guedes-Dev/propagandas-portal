@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { ButtonCommit, Container } from "./style";
 import { useParams } from "react-router-dom";
-import { getPerson } from "../../../api/services/person/person-services";
-import { PersonResponse } from "../../../core/entities/person/person";
+import { PutPerson, getPerson } from "../../../api/services/person/person-services";
 import { Input } from "../../components/input/input";
-import { Card, CardBody, CardFooter, CardHeader, TitleCard, CardLine } from "../../utils/global-styles";
+import { Card, CardBody, CardFooter, CardHeader, TitleCard, CardLine, CardColumn } from "../../utils/global-styles";
+import Checkbox from "../../checkbox/checkbox";
+import { PersonResponse } from "../../../core/entities/person/person";
 
-export const EditClient: React.FC = () => {
+const FormClient: React.FC = () => {
     const { client_id } = useParams();
     const [active, setActive] = useState<boolean>(true);
     const [cpf, setCpf] = useState<string>();
@@ -19,6 +20,7 @@ export const EditClient: React.FC = () => {
     const [city, setCity] = useState<string>();
     const [state, setState] = useState<string>();
     const [isUpdate, setIsUpdate] = useState<boolean>(false);
+    const [isCnpj, setIsCnpj] = useState<boolean>(false);
 
     const getPersonAsync = useCallback(async () => {
         try {
@@ -44,12 +46,44 @@ export const EditClient: React.FC = () => {
         }
     }, [client_id]);
 
+    const sendClient = async () => {
+        try {
+            const sendObject: PersonResponse = {
+                active: active,
+                city: city,
+                cpf: cpf,
+                email: email,
+                is_client: true,
+                is_driver: false,
+                is_employee: false,
+                neighborhood: neighborhood,
+                nome: nome,
+                number: number,
+                phone: phone,
+                road: road,
+                state: state,
+                user_id: null
+            }
+
+            if (isUpdate) {
+                const response = await PutPerson(sendObject, { id: client_id })
+                console.log(response)
+            } else {
+                console.log('create')
+            }
+
+        } catch (error: any) {
+            console.log(error)
+        }
+
+    }
+
     useEffect(() => {
         if (client_id) {
             getPersonAsync();
             setIsUpdate(true)
         }
-    }, [getPersonAsync]);
+    }, [getPersonAsync, client_id]);
 
     return (
         <Container>
@@ -60,8 +94,10 @@ export const EditClient: React.FC = () => {
                 <CardBody>
                     <CardLine>
                         <Input label="Nome" onChangeValue={(text) => { setNome(text) }} type="text" value={nome} />
-                        <Input mask={[/\d/, /\d/, /\d/, ".", /\d/, /\d/, /\d/, ".", /\d/, /\d/, /\d/, "-", /\d/, /\d/]}
-                            label="Cpf" onChangeValue={(text) => { setCpf(text) }} type="text" value={cpf} />
+                        <Input
+                            label="Cpf/Cnpj"
+                            onChangeValue={(text) => { setCpf(text) }}
+                            type="text" value={cpf} />
                         <Input label="E-mail" onChangeValue={(text) => { setEmail(text) }} type="text" value={email} />
                     </CardLine>
                     <CardLine>
@@ -75,12 +111,20 @@ export const EditClient: React.FC = () => {
                         <Input label="Numero" onChangeValue={(text) => { setNumber(text) }} type="text" value={number} />
                     </CardLine>
                 </CardBody>
-                <CardFooter style={{ paddingRight: '30px' }}>
-                    <ButtonCommit>
-                        Enviar
-                    </ButtonCommit>
+                <CardFooter>
+                    <CardColumn>
+                        <Checkbox label="Ativo" checked={active} onChange={(check) => setActive(check)} />
+                    </CardColumn>
+                    <CardColumn />
+                    <CardColumn style={{ justifyContent: 'flex-end', paddingRight: 5 }} >
+                        <ButtonCommit onClick={sendClient}>
+                            Enviar
+                        </ButtonCommit>
+                    </CardColumn>
                 </CardFooter>
             </Card>
         </Container>
     )
 }
+
+export default FormClient;

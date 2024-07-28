@@ -5,7 +5,6 @@ import { ThemeProvider } from 'styled-components';
 
 const App: React.FC = () => {
   const [theme] = useState(lightTheme);
-
   return (
     <ThemeProvider theme={theme}>
       <Router />
