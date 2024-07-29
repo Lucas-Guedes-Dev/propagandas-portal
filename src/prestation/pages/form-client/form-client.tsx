@@ -4,9 +4,10 @@ import { useParams } from "react-router-dom";
 import { PostPerson, PutPerson, getPerson } from "../../../api/services/person/person-services";
 import { Input } from "../../components/input/input";
 import { Card, CardBody, CardFooter, CardHeader, TitleCard, CardLine, CardColumn } from "../../utils/global-styles";
-import Checkbox from "../../checkbox/checkbox";
+import Checkbox from "../../components/checkbox/checkbox";
 import { PersonResponse } from "../../../core/entities/person/person";
 import { toast } from "react-toastify";
+import Toggle from "../../components/toggle/toggle";
 
 const FormClient: React.FC = () => {
     const { client_id } = useParams();
@@ -115,11 +116,8 @@ const FormClient: React.FC = () => {
                     </CardLine>
                 </CardBody>
                 <CardFooter>
-                    <CardColumn>
-                        <Checkbox label="Ativo" checked={active} onChange={(check) => setActive(check)} />
-                    </CardColumn>
-                    <CardColumn />
                     <CardColumn style={{ justifyContent: 'flex-end', paddingRight: 5 }} >
+                        <Toggle text="Ativo" onCheckedChange={() => setActive(!active)} isChecked={active} />
                         <ButtonCommit onClick={sendClient}>
                             Enviar
                         </ButtonCommit>

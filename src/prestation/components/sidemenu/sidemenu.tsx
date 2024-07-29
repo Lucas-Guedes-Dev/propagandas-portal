@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Body, ButtonCollapsed, Container, ContainerLogo, Header } from "./style";
-import { MdOutlineMenu } from "react-icons/md";
 import { useTheme } from "styled-components";
 import imgAction from '../../assets/LOGOLIGHT.svg';
 import SectionMenu from "../section-menu/section-menu";
@@ -9,6 +8,7 @@ import { IoMegaphone } from "react-icons/io5";
 import { FaUsers } from "react-icons/fa";
 import { FaCar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { FaChevronLeft } from "react-icons/fa";
 
 const SideMenu: React.FC = () => {
     const [collapsed, setCollapsed] = useState<boolean>(true);
@@ -26,7 +26,7 @@ const SideMenu: React.FC = () => {
                     />
                 </ContainerLogo>
                 <ButtonCollapsed collapsed={collapsed} onClick={() => setCollapsed(!collapsed)}>
-                    <MdOutlineMenu color={theme.colors.backgroundLogin} size={30} />
+                    <FaChevronLeft color={theme.colors.backgroundLogin} size={30} />
                 </ButtonCollapsed>
             </Header>
             <Body>
@@ -43,15 +43,15 @@ const SideMenu: React.FC = () => {
                     collapsed={collapsed}
                 />
                 <SectionMenu
-                    icon={<FaUsers color={theme.colors.background} size={30} />}
-                    path="/usuarios"
-                    text="Usuários"
-                    collapsed={collapsed}
-                />
-                <SectionMenu
                     icon={<FaCar color={theme.colors.background} size={30} />}
                     path="/motoristas"
                     text="Motoristas"
+                    collapsed={collapsed}
+                />
+                <SectionMenu
+                    icon={<FaUsers color={theme.colors.background} size={30} />}
+                    path="/usuarios"
+                    text="Usuários"
                     collapsed={collapsed}
                 />
             </Body>

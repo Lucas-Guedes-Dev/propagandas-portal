@@ -1,10 +1,10 @@
 import React from "react";
 import { Body, Column, ColumnHeader, Header, LineHeader, Line, TableContainer, TextHeader, ContainerNotFound, LabelNotFound, ButtonEditar } from "./style";
 import NotFound from '../../assets/not-found.png';
-import { TiInputChecked } from "react-icons/ti";
-import { ImCheckboxUnchecked } from "react-icons/im";
 import { useTheme } from "styled-components";
 import { FaPenAlt } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
+import { IoMdCloseCircle } from "react-icons/io";
 
 interface TableProps {
     columns: { key: string, header: string | React.ReactNode }[],
@@ -45,7 +45,7 @@ const Table: React.FC<TableProps> = (props) => {
                             {props.columns.map((column) => (
                                 <Column key={column.key}>
                                     {typeof line[column.key] === 'boolean' ? (
-                                        line[column.key] ? <TiInputChecked size={30} color={theme.colors.secondSupportColor} /> : <ImCheckboxUnchecked size={30} color={theme.colors.errorColor} />
+                                        line[column.key] ? <FaCheck size={30} color={theme.colors.secondSupportColor} /> : <IoMdCloseCircle size={30} color={theme.colors.errorColor} />
                                     ) : (
                                         column.key === 'id' ? (
                                             <ButtonEditar onClick={() => onEditClicked(line[column.key])}>

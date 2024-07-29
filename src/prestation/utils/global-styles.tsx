@@ -42,6 +42,7 @@ export const CardColumn = styled.div`
     justify-content: center;
     flex-direction: row;
     flex: 1;
+    gap: 20px;
 `;
 
 export const CardLine = styled.div`
