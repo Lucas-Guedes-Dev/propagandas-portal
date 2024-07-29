@@ -14,18 +14,18 @@ const columns = [
     { key: 'id', header: 'Editar' },
 ];
 
-const ListClients: React.FC = () => {
-    const [clients, setClients] = useState<PersonResponse[]>([])
+const ListDriver: React.FC = () => {
+    const [driver, setDriver] = useState<PersonResponse[]>([])
 
     const navigate = useNavigate();
 
     const getClientsAsync = async () => {
         try {
             const response = await getPerson({
-                is_client: true
+                is_driver: true
             });
 
-            setClients(response);
+            setDriver(response);
         } catch (error) {
             console.error(error)
         }
@@ -36,15 +36,15 @@ const ListClients: React.FC = () => {
     }, [])
 
     const onEditClicked = (id: number) => {
-        navigate(`/editar/cliente/${id}`)
+        navigate(`/editar/motorista/${id}`)
     }
 
     return (
         <Container>
-            <FilterAccordion title="Ações" onNewClicked={() => { navigate('/novo/cliente') }} />
-            <Table onEdit={(id) => onEditClicked(id)} columns={columns} lines={clients} />
+            <FilterAccordion title="Ações" onNewClicked={() => { navigate('/novo/motorista') }} />
+            <Table onEdit={(id) => onEditClicked(id)} columns={columns} lines={driver} />
         </Container>
     )
 }
 
-export default ListClients;
+export default ListDriver;

@@ -7,6 +7,7 @@ import SectionMenu from "../section-menu/section-menu";
 import { BsFillPersonCheckFill } from "react-icons/bs";
 import { IoMegaphone } from "react-icons/io5";
 import { FaUsers } from "react-icons/fa";
+import { FaCar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const SideMenu: React.FC = () => {
@@ -45,6 +46,12 @@ const SideMenu: React.FC = () => {
                     icon={<FaUsers color={theme.colors.background} size={30} />}
                     path="/usuarios"
                     text="Usuários"
+                    collapsed={collapsed}
+                />
+                <SectionMenu
+                    icon={<FaCar color={theme.colors.background} size={30} />}
+                    path="/motoristas"
+                    text="Motoristas"
                     collapsed={collapsed}
                 />
             </Body>

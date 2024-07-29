@@ -9,7 +9,15 @@ export const Container = styled.div<SideMenuType>`
     height: 100%;
     width: ${(props) => (props.collapsed ? '80px' : '300px')};
     background-color: ${(props) => props.theme.colors.secondBackground};
-    transition: width 0.3s ease; 
+    transition: width 0.3s ease;
+
+    @media (max-width: 768px) {
+        position: absolute;
+        z-index: 10; 
+        width: ${(props) => (props.collapsed ? '80px' : '300px')};
+        top: 0;
+        left: 0;
+    }
 `;
 
 export const Header = styled.div`

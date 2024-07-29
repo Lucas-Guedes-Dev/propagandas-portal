@@ -5,8 +5,7 @@ import InputLogin from "../../components/input-login/input-login";
 import { login } from "../../../api/services/auth/auth-service";
 import MovingImage from "../../components/moving-image/moving-image";
 import { Button } from "../../components/button/button";
-import { Bounce, ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import { AuthResponse } from "../../../core/entities/auth/auth";
 import { usePage } from "../../../store/last-page";
 import { useNavigate } from "react-router-dom";
@@ -79,19 +78,7 @@ const Login: React.FC = () => {
                     <Button onPress={onClickLogin} text="Login" />
                 </ContainerElements>
             </ContainerForm>
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                transition={Bounce}
-            />
+
         </Container>
     );
 }

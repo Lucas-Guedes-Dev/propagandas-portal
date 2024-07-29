@@ -29,6 +29,11 @@ export const CardHeader = styled.div`
     flex: 1;
     width: 97.5%;
     border-bottom: 1px solid ${props => props.theme.colors.backgroundLogin};
+
+    @media (max-width: 768px) {
+        align-items: center;
+        justify-content: center;
+    }
 `;
 
 export const CardColumn = styled.div`

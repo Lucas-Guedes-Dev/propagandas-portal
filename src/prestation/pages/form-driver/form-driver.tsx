@@ -8,8 +8,8 @@ import Checkbox from "../../checkbox/checkbox";
 import { PersonResponse } from "../../../core/entities/person/person";
 import { toast } from "react-toastify";
 
-const FormClient: React.FC = () => {
-    const { client_id } = useParams();
+const FormDriver: React.FC = () => {
+    const { driver_id } = useParams();
     const [active, setActive] = useState<boolean>(true);
     const [cpf, setCpf] = useState<string>();
     const [email, setEmail] = useState<string>();
@@ -25,7 +25,7 @@ const FormClient: React.FC = () => {
     const getPersonAsync = useCallback(async () => {
         try {
             const response = await getPerson({
-                id: client_id
+                id: driver_id
             });
 
             if (response) {
@@ -44,7 +44,7 @@ const FormClient: React.FC = () => {
         } catch (error: any) {
             console.log(error);
         }
-    }, [client_id]);
+    }, [driver_id]);
 
     const sendClient = async () => {
         try {
@@ -53,8 +53,8 @@ const FormClient: React.FC = () => {
                 city: city,
                 cpf_cnpj: cpf,
                 email: email,
-                is_client: true,
-                is_driver: false,
+                is_client: false,
+                is_driver: true,
                 is_employee: false,
                 neighborhood: neighborhood,
                 name: nome,
@@ -66,7 +66,7 @@ const FormClient: React.FC = () => {
             }
 
             if (isUpdate) {
-                await PutPerson(sendObject, { id: client_id })
+                await PutPerson(sendObject, { id: driver_id })
                 toast.success('Foi alterado com sucesso!')
             } else {
                 await PostPerson(sendObject);
@@ -80,19 +80,19 @@ const FormClient: React.FC = () => {
     }
 
     useEffect(() => {
-        if (client_id) {
+        if (driver_id) {
             getPersonAsync();
             setIsUpdate(true)
         } else {
             setIsUpdate(false)
         }
-    }, [getPersonAsync, client_id]);
+    }, [getPersonAsync, driver_id]);
 
     return (
         <Container>
             <Card>
                 <CardHeader style={{ paddingLeft: '30px' }}>
-                    <TitleCard>Clientes</TitleCard>
+                    <TitleCard>Motorista</TitleCard>
                 </CardHeader>
                 <CardBody>
                     <CardLine>
@@ -130,4 +130,4 @@ const FormClient: React.FC = () => {
     )
 }
 
-export default FormClient;
+export default FormDriver;

@@ -8,14 +8,14 @@ export interface PersonParam {
 
 export interface PersonResponse {
   active: boolean;
-  cpf?: string;
+  cpf_cnpj?: string;
   email?: string;
   id?: number;
   is_client?: boolean;
   is_driver?: boolean;
   is_employee?: boolean;
   neighborhood?: string;
-  nome?: string;
+  name?: string;
   number?: string;
   phone?: string;
   road?: string;

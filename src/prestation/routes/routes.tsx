@@ -8,6 +8,8 @@ import ListClients from "../pages/list-clients/list-client";
 import ListAds from "../pages/list-ads/list-ads";
 import ListUsers from "../pages/list-users/list-users";
 import FormClient from "../pages/form-client/form-client";
+import ListDriver from "../pages/list-driver/list-driver";
+import FormDriver from "../pages/form-driver/form-driver";
 
 const Router: React.FC = () => {
     const token = localStorage.getItem('token');
@@ -35,6 +37,30 @@ const Router: React.FC = () => {
                     <Route path="/editar/cliente/:client_id" element={
                         <Layout>
                             <FormClient />
+                        </Layout>
+                    } />
+
+                    <Route path="/novo/cliente" element={
+                        <Layout>
+                            <FormClient />
+                        </Layout>
+                    } />
+
+                    <Route path="/motoristas" element={
+                        <Layout>
+                            <ListDriver />
+                        </Layout>
+                    } />
+
+                    <Route path="/editar/motorista/:driver_id" element={
+                        <Layout>
+                            <FormDriver />
+                        </Layout>
+                    } />
+
+                    <Route path="/novo/motorista" element={
+                        <Layout>
+                            <FormDriver />
                         </Layout>
                     } />
 

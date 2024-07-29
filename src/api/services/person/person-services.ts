@@ -1,4 +1,4 @@
-import { get, put } from "../../clients/http-client";
+import { get, put, post } from "../../clients/http-client";
 import {
   PersonParam,
   PersonResponse,
@@ -16,4 +16,10 @@ export const PutPerson = async (
   param: PersonParam
 ): Promise<PutResponse> => {
   return await put<PutResponse>(`/person/update`, data, param);
+};
+
+export const PostPerson = async (
+  data: PersonResponse
+): Promise<PutResponse> => {
+  return await post<PutResponse>(`/person/create`, data);
 };
