@@ -1,60 +1,83 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { ButtonCommit, Container } from "./style";
 import { useParams } from "react-router-dom";
-import { PostPerson, PutPerson, getPerson } from "../../../api/services/person/person-services";
 import { Input } from "../../components/input/input";
 import { Card, CardBody, CardFooter, CardHeader, TitleCard, CardLine, CardColumn } from "../../utils/global-styles";
-import Checkbox from "../../components/checkbox/checkbox";
-import { PersonResponse } from "../../../core/entities/person/person";
 import { toast } from "react-toastify";
+import Toggle from "../../components/toggle/toggle";
+import { GetUser, PostUser } from "../../../api/services/users/user-services";
+import { UserResponseType } from "../../../core/entities/user/user";
 
-const FormDriver: React.FC = () => {
+const FormUser: React.FC = () => {
     const { user_id } = useParams();
     const [isUpdate, setIsUpdate] = useState<boolean>(false);
     const [active, setActive] = useState<boolean>(true);
+    const [isAdmin, setIsAdmin] = useState<boolean>(false);
+    const [password, setPassword] = useState<string>('');
+    const [username, setUsername] = useState<string>('');
 
-    const getUserAsync = useCallback(async () => {
-
-    }, [user_id]);
+    const getUserAsync = async () => {
+        try {
+            const response = await GetUser({
+                id_user: user_id
+            });
+            console.log(response)
+            setUsername(response[0].username)
+            setIsAdmin(response[0].is_admin)
+            setActive(response[0].active)
+        } catch (error: any) {
+            console.log(error.response)
+            toast.error('Algo aconteceu de errado, por favor tente novamente mais tarde.')
+        }
+    };
 
     const sendUser = async () => {
         try {
+            const dataUser: UserResponseType = {
+                active: active,
+                is_admin: isAdmin,
+                username: username,
+                password: password
+            }
+
             if (isUpdate) {
                 toast.success('Foi alterado com sucesso!')
             } else {
+                PostUser(dataUser)
                 toast.success('Foi inserido com sucesso!')
             }
 
         } catch (error: any) {
             toast.error('Não foi possível inserir ou alterar a informação')
         }
-
     }
 
     useEffect(() => {
         if (user_id) {
-            sendUser();
             setIsUpdate(true)
+            getUserAsync();
         } else {
             setIsUpdate(false)
         }
-    }, [sendUser, user_id]);
+    }, [user_id]);
 
     return (
         <Container>
             <Card>
-                <CardHeader>
-
+                <CardHeader style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <TitleCard>Usuário do sistema</TitleCard>
                 </CardHeader>
-                <CardBody>
-
+                <CardBody style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <CardLine style={{ width: '50%', justifyContent: 'center', alignItems: 'center' }}>
+                        <Input label="Usuário" onChangeValue={(text) => { setUsername(text) }} type="text" value={username} />
+                    </CardLine>
+                    <CardLine style={{ width: '50%', justifyContent: 'center', alignItems: 'center' }}>
+                        <Input label="Senha" onChangeValue={(text) => { setPassword(text) }} type="text" value={''} />
+                    </CardLine>
                 </CardBody>
-                <CardFooter>
-                    <CardColumn>
-                        <Checkbox label="Ativo" checked={active} onChange={(check) => setActive(check)} />
-                    </CardColumn>
-                    <CardColumn />
-                    <CardColumn style={{ justifyContent: 'flex-end', paddingRight: 5 }} >
+                <CardFooter >
+                    <CardColumn style={{ justifyContent: 'center', paddingRight: 5 }} >
+                        <Toggle text="Ativo" onCheckedChange={() => setActive(!active)} isChecked={active} />
                         <ButtonCommit onClick={sendUser}>
                             Enviar
                         </ButtonCommit>
@@ -65,4 +88,4 @@ const FormDriver: React.FC = () => {
     )
 }
 
-export default FormDriver;
+export default FormUser;

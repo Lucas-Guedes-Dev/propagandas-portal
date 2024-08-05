@@ -2,25 +2,25 @@ import React, { useEffect, useState } from "react";
 import Table from "../../components/table/table";
 import { Container } from "./style";
 import { useNavigate } from "react-router-dom";
+import FilterAccordion from "../../components/filter-accordion/FilterAccordion";
+import { GetUser } from "../../../api/services/users/user-services";
+import { UserResponseType } from "../../../core/entities/user/user";
 
 const columns = [
     { key: 'username', header: 'Usuário' },
     { key: 'active', header: 'Ativo' },
-    { key: 'id', header: 'Editar' },
+    { key: 'id_user', header: 'Editar' },
 ];
 
 const ListUsers: React.FC = () => {
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState<UserResponseType[]>([])
 
     const navigate = useNavigate();
 
     const getUserAsync = async () => {
         try {
-            // const response = await getPerson({
-            //     is_client: true
-            // });
-
-            // setUsers(response);
+            const response = await GetUser({});
+            setUsers(response);
         } catch (error) {
             console.log(error)
         }
@@ -30,13 +30,14 @@ const ListUsers: React.FC = () => {
         getUserAsync();
     }, [])
 
-    // const onEditClicked = (id: number) => {
-    //     navigate(`/editar/cliente/${id}`)
-    // }
+    const onEditClicked = (id: number) => {
+        navigate(`/editar/usuario/${id}`)
+    }
 
     return (
         <Container>
-            <Table onEdit={(id) => console.log(id)} columns={columns} lines={users} />
+            <FilterAccordion title="Ações" onNewClicked={() => { navigate('/novo/usuario') }} />
+            <Table onEdit={(id) => onEditClicked(id)} columns={columns} lines={users} />
         </Container>
     )
 }

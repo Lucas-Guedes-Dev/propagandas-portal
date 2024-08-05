@@ -8,4 +8,5 @@ export const Container = styled.div`
     width: 95%;
     background-color: ${(props) => props.theme.colors.background};
     overflow-y: hidden;
+    flex-direction: column;
 `;

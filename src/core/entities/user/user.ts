@@ -6,5 +6,6 @@ export interface UserResponseType {
 }
 
 export interface UserParam {
-  id_user: number;
+  id_user?: string;
+  username?: string;
 }

@@ -47,7 +47,7 @@ const Table: React.FC<TableProps> = (props) => {
                                     {typeof line[column.key] === 'boolean' ? (
                                         line[column.key] ? <FaCheck size={30} color={theme.colors.secondSupportColor} /> : <IoMdCloseCircle size={30} color={theme.colors.errorColor} />
                                     ) : (
-                                        column.key === 'id' ? (
+                                        column.key === 'id' || column.key === 'id_user' ? (
                                             <ButtonEditar onClick={() => onEditClicked(line[column.key])}>
                                                 <FaPenAlt size={20} />
                                             </ButtonEditar>

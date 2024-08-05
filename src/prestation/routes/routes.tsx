@@ -10,6 +10,7 @@ import ListUsers from "../pages/list-users/list-users";
 import FormClient from "../pages/form-client/form-client";
 import ListDriver from "../pages/list-driver/list-driver";
 import FormDriver from "../pages/form-driver/form-driver";
+import FormUser from "../pages/form-user/form-user";
 
 const Router: React.FC = () => {
     const token = localStorage.getItem('token');
@@ -67,6 +68,18 @@ const Router: React.FC = () => {
                     <Route path="/propagandas" element={
                         <Layout>
                             <ListAds />
+                        </Layout>
+                    } />
+
+                    <Route path="/novo/usuario" element={
+                        <Layout>
+                            <FormUser />
+                        </Layout>
+                    } />
+
+                    <Route path="/editar/usuario/:user_id" element={
+                        <Layout>
+                            <FormUser />
                         </Layout>
                     } />
 

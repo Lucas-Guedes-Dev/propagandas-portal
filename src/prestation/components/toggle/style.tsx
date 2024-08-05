@@ -6,12 +6,19 @@ export const Container = styled.div`
     justify-content: center;
     flex-direction: row;
     gap: 10px;
+    @media (max-width: 950px) {
+      flex-direction: column;
+    }
 `;
 
 export const Label = styled.label`
     font-size: medium;
     font-weight: bold;
     color: ${(props) => props.theme.colors.secondBackground};
+
+    @media (max-width: 550px) {
+      display: none;
+    }
 `;
 
 export const Switch = styled.label`
