@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ButtonCommit, Container } from "./style";
 import { useParams } from "react-router-dom";
 import { Input } from "../../components/input/input";
@@ -16,17 +16,24 @@ const FormUser: React.FC = () => {
     const [password, setPassword] = useState<string>('');
     const [username, setUsername] = useState<string>('');
 
+    useEffect(() => {
+        if (user_id) {
+            setIsUpdate(true)
+            getUserAsync();
+        } else {
+            setIsUpdate(false)
+        }
+    }, [user_id]);
+
     const getUserAsync = async () => {
         try {
             const response = await GetUser({
                 id_user: user_id
             });
-            console.log(response)
             setUsername(response[0].username)
             setIsAdmin(response[0].is_admin)
             setActive(response[0].active)
         } catch (error: any) {
-            console.log(error.response)
             toast.error('Algo aconteceu de errado, por favor tente novamente mais tarde.')
         }
     };
@@ -52,14 +59,6 @@ const FormUser: React.FC = () => {
         }
     }
 
-    useEffect(() => {
-        if (user_id) {
-            setIsUpdate(true)
-            getUserAsync();
-        } else {
-            setIsUpdate(false)
-        }
-    }, [user_id]);
 
     return (
         <Container>

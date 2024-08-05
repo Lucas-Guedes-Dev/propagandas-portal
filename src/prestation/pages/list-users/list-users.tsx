@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Table from "../../components/table/table";
 import { Container } from "./style";
 import { useNavigate } from "react-router-dom";
@@ -17,14 +17,14 @@ const ListUsers: React.FC = () => {
 
     const navigate = useNavigate();
 
-    const getUserAsync = async () => {
+    const getUserAsync = useCallback(async () => {
         try {
             const response = await GetUser({});
             setUsers(response);
         } catch (error) {
             console.log(error)
         }
-    }
+    }, []);
 
     useEffect(() => {
         getUserAsync();
