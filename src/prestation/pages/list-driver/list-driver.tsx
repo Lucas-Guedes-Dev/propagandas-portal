@@ -24,7 +24,7 @@ const ListDriver: React.FC = () => {
             const response = await getPerson({
                 is_driver: true
             });
-
+            console.log(response)
             setDriver(response);
         } catch (error) {
             console.error(error)

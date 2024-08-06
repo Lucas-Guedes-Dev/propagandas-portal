@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import Table from "../../components/table/table";
 import { Container } from "./style";
 import { useNavigate } from "react-router-dom";
+import FilterAccordion from "../../components/filter-accordion/FilterAccordion";
+import { GetAds } from "../../../api/services/ads/ads-service";
+import { AdsResponse } from "../../../core/entities/ads/ads";
 
 const columns = [
     { key: 'nome', header: 'Nome' },
@@ -11,25 +14,25 @@ const columns = [
 ];
 
 const ListAds = () => {
-    const [ads, setAds] = useState([])
+    const [ads, setAds] = useState<AdsResponse[]>([])
 
     const navigate = useNavigate();
 
-    const getadsAsync = async () => {
+    const getAdsAsync = async () => {
         try {
-            // const response = await getPerson({
-            //     is_client: true
-            // });
+            const response = await GetAds({
+                active: true
+            });
 
-            // setAds(response);
+            setAds(response);
         } catch (error) {
             console.log(error)
         }
     }
 
-    // useEffect(() => {
-    //     getadsAsync();
-    // }, [])
+    useEffect(() => {
+        getAdsAsync();
+    }, [])
 
     // const onEditClicked = (id: number) => {
     //     navigate(`/editar/cliente/${id}`)
@@ -37,6 +40,7 @@ const ListAds = () => {
 
     return (
         <Container>
+            <FilterAccordion title="Ações" onNewClicked={() => { navigate('/novo/propaganda') }} />
             <Table onEdit={(id) => console.log(id)} columns={columns} lines={ads} />
         </Container>
     )

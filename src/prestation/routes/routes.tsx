@@ -71,6 +71,12 @@ const Router: React.FC = () => {
                         </Layout>
                     } />
 
+                    <Route path="/novo/propaganda" element={
+                        <Layout>
+                            <ListAds />
+                        </Layout>
+                    } />
+
                     <Route path="/novo/usuario" element={
                         <Layout>
                             <FormUser />

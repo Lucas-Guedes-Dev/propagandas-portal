@@ -16,15 +16,6 @@ const FormUser: React.FC = () => {
     const [password, setPassword] = useState<string>('');
     const [username, setUsername] = useState<string>('');
 
-    useEffect(() => {
-        if (user_id) {
-            setIsUpdate(true)
-            getUserAsync();
-        } else {
-            setIsUpdate(false)
-        }
-    }, [user_id]);
-
     const getUserAsync = async () => {
         try {
             const response = await GetUser({
@@ -37,6 +28,15 @@ const FormUser: React.FC = () => {
             toast.error('Algo aconteceu de errado, por favor tente novamente mais tarde.')
         }
     };
+
+    useEffect(() => {
+        if (user_id) {
+            setIsUpdate(true)
+            getUserAsync();
+        } else {
+            setIsUpdate(false)
+        }
+    }, [user_id]);
 
     const sendUser = async () => {
         try {
@@ -67,15 +67,17 @@ const FormUser: React.FC = () => {
                     <TitleCard>Usuário do sistema</TitleCard>
                 </CardHeader>
                 <CardBody style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <CardLine style={{ width: '50%', justifyContent: 'center', alignItems: 'center' }}>
+                    <CardLine>
                         <Input label="Usuário" onChangeValue={(text) => { setUsername(text) }} type="text" value={username} />
                     </CardLine>
-                    <CardLine style={{ width: '50%', justifyContent: 'center', alignItems: 'center' }}>
+                    <CardLine>
                         <Input label="Senha" onChangeValue={(text) => { setPassword(text) }} type="text" value={''} />
                     </CardLine>
                 </CardBody>
                 <CardFooter >
                     <CardColumn style={{ justifyContent: 'center', paddingRight: 5 }} >
+                        <Toggle text="Admin" onCheckedChange={() => setIsAdmin(!isAdmin)} isChecked={isAdmin} />
+
                         <Toggle text="Ativo" onCheckedChange={() => setActive(!active)} isChecked={active} />
                         <ButtonCommit onClick={sendUser}>
                             Enviar

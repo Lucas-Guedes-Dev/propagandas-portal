@@ -68,11 +68,6 @@ export const CardBody = styled.div`
     width: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-
-    
-    @media (max-width: 768px) {
-        padding-top: 320px; 
-    }
 `;
 
 export const CardFooter = styled.div`
