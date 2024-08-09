@@ -76,6 +76,7 @@ export const CardFooter = styled.div`
     justify-content: flex-end;
     flex-direction: row;
     flex: 1;
-    width: 98%;
+    width: 100%;
     border-top: 1px solid ${props => props.theme.colors.backgroundLogin};
+    margin-top: auto; 
 `;

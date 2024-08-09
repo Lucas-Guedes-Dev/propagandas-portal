@@ -15,28 +15,24 @@ export const ContainerLabel = styled.div`
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-`
+`;
 
 export const Label = styled.label`
     font-size: 17px;
     color: ${(props) => props.theme.colors.text};
-    padding-left: 7px;
 `;
 
 export const InputText = styled.input`
     padding: 5px;
-    height: 35px;
-    width: 95%;
+    height: 25px;
+    width: 100%;
     color: ${(props) => props.theme.colors.text};
-    border-radius: 8px;
     border: 1px solid ${(props) => props.theme.colors.backgroundLogin};
 `;
 
 export const InputMask = styled(MaskedInput)`
-     padding: 5px;
     height: 35px;
     width: 95%;
     color: ${(props) => props.theme.colors.text};
-    border-radius: 8px;
     border: 1px solid ${(props) => props.theme.colors.backgroundLogin};
 `

@@ -28,7 +28,7 @@ const ListUsers: React.FC = () => {
 
     useEffect(() => {
         getUserAsync();
-    }, [])
+    }, [getUserAsync])
 
     const onEditClicked = (id: number) => {
         navigate(`/editar/usuario/${id}`)

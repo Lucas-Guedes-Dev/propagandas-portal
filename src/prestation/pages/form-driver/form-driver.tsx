@@ -1,10 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { ButtonCommit, Container } from "./style";
+import { BodyForm, ButtonCommit, Container, FooterForm, HeaderForm, LineForm } from "./style";
 import { useParams } from "react-router-dom";
 import { PostPerson, PutPerson, getPerson } from "../../../api/services/person/person-services";
 import { Input } from "../../components/input/input";
-import { Card, CardBody, CardFooter, CardHeader, TitleCard, CardLine, CardColumn } from "../../utils/global-styles";
-import Checkbox from "../../components/checkbox/checkbox";
 import { PersonResponse } from "../../../core/entities/person/person";
 import { toast } from "react-toastify";
 import Toggle from "../../components/toggle/toggle";
@@ -91,40 +89,38 @@ const FormDriver: React.FC = () => {
 
     return (
         <Container>
-            <Card>
-                <CardHeader style={{ paddingLeft: '30px' }}>
-                    <TitleCard>Motorista</TitleCard>
-                </CardHeader>
-                <CardBody>
-                    <CardLine>
-                        <Input label="Nome" onChangeValue={(text) => { setNome(text) }} type="text" value={nome} />
-                        <Input
-                            label="Cpf/Cnpj"
-                            onChangeValue={(text) => { setCpf(text) }}
-                            type="text" value={cpf} />
-                        <Input label="E-mail" onChangeValue={(text) => { setEmail(text) }} type="text" value={email} />
-                    </CardLine>
-                    <CardLine>
-                        <Input label="Telefone" onChangeValue={(text) => { setPhone(text) }} type="text" value={phone} />
-                        <Input label="Estado" onChangeValue={(text) => { setState(text) }} type="text" value={state} />
-                        <Input label="Cidade" onChangeValue={(text) => { setCity(text) }} type="text" value={city} />
-                    </CardLine>
-                    <CardLine>
-                        <Input label="Bairro" onChangeValue={(text) => { setNeighborhood(text) }} type="text" value={neighborhood} />
-                        <Input label="Rua" onChangeValue={(text) => { setRoad(text) }} type="text" value={road} />
-                        <Input label="Numero" onChangeValue={(text) => { setNumber(text) }} type="text" value={number} />
-                    </CardLine>
-                </CardBody>
-                <CardFooter>
+            <BodyForm>
+                <HeaderForm>
+                    <h2>Motorista</h2>
+                </HeaderForm>
 
-                    <CardColumn style={{ justifyContent: 'flex-end', paddingRight: 5 }} >
+                <LineForm>
+                    <Input label="Nome" onChangeValue={(text) => { setNome(text) }} type="text" value={nome} />
+                    <Input
+                        label="Cpf/Cnpj"
+                        onChangeValue={(text) => { setCpf(text) }}
+                        type="text" value={cpf} />
+                    <Input label="E-mail" onChangeValue={(text) => { setEmail(text) }} type="text" value={email} />
+                </LineForm>
+                <LineForm>
+                    <Input label="Telefone" onChangeValue={(text) => { setPhone(text) }} type="text" value={phone} />
+                    <Input label="Estado" onChangeValue={(text) => { setState(text) }} type="text" value={state} />
+                    <Input label="Cidade" onChangeValue={(text) => { setCity(text) }} type="text" value={city} />
+                </LineForm>
+                <LineForm>
+                    <Input label="Bairro" onChangeValue={(text) => { setNeighborhood(text) }} type="text" value={neighborhood} />
+                    <Input label="Rua" onChangeValue={(text) => { setRoad(text) }} type="text" value={road} />
+                    <Input label="Numero" onChangeValue={(text) => { setNumber(text) }} type="text" value={number} />
+                </LineForm>
+                <FooterForm>
+                    <LineForm style={{ justifyContent: 'flex-end', paddingRight: 5 }} >
                         <Toggle text="Ativo" onCheckedChange={() => setActive(!active)} isChecked={active} />
                         <ButtonCommit onClick={sendClient}>
                             Enviar
                         </ButtonCommit>
-                    </CardColumn>
-                </CardFooter>
-            </Card>
+                    </LineForm>
+                </FooterForm>
+            </BodyForm>
         </Container>
     )
 }

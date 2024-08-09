@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Container, ContainerBody, ContainerHeaderBody } from "./styled";
+import { Container, ContainerBody, ContainerHeaderBody } from "./style";
 import SideMenu from "../sidemenu/sidemenu";
 import Header from "../header/header";
 

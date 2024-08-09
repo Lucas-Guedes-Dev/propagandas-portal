@@ -27,6 +27,6 @@ export const ContainerBody = styled.div`
     align-items: center;
     flex: 10;
     width: 100%;
-    overflow-y: hidden;
+    height: 100%;
 `;
 

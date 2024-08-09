@@ -11,6 +11,7 @@ import FormClient from "../pages/form-client/form-client";
 import ListDriver from "../pages/list-driver/list-driver";
 import FormDriver from "../pages/form-driver/form-driver";
 import FormUser from "../pages/form-user/form-user";
+import FormAds from "../pages/form-ads/form-ads";
 
 const Router: React.FC = () => {
     const token = localStorage.getItem('token');
@@ -73,7 +74,7 @@ const Router: React.FC = () => {
 
                     <Route path="/novo/propaganda" element={
                         <Layout>
-                            <ListAds />
+                            <FormAds />
                         </Layout>
                     } />
 
