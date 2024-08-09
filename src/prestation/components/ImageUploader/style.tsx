@@ -20,6 +20,7 @@ export const DropzoneText = styled.p`
   margin: 0;
   font-size: 16px;
   color: #666666;
+  white-space: normal
 `;
 
 export const ImagePreview = styled.img`

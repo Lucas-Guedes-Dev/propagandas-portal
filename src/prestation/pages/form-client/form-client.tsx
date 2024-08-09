@@ -3,7 +3,6 @@ import { BodyForm, ButtonCommit, Container, FooterForm, HeaderForm, LineForm } f
 import { useParams } from "react-router-dom";
 import { PostPerson, PutPerson, getPerson } from "../../../api/services/person/person-services";
 import { Input } from "../../components/input/input";
-import { Card, CardBody, CardFooter, CardHeader, TitleCard, CardLine, CardColumn } from "../../utils/global-styles";
 import { PersonResponse } from "../../../core/entities/person/person";
 import { toast } from "react-toastify";
 import Toggle from "../../components/toggle/toggle";

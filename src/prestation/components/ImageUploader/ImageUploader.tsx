@@ -21,10 +21,10 @@ const ImageUploader: React.FC = () => {
         <DropzoneContainer {...getRootProps()}>
             <input {...getInputProps()} />
             {image ? (
-                <ImagePreview style={{ width: '500px', height: '500px' }} src={image} alt="Preview" />
+                <ImagePreview style={{ width: '400px', height: '400px' }} src={image} alt="Preview" />
             ) : (
                 <DropzoneText>
-                    {isDragActive ? 'Solte a imagem aqui...' : 'Arraste e solte uma imagem aqui, ou clique para selecionar uma imagem'}
+                    {isDragActive ? 'Solte a imagem aqui...' : 'Clique e escolha ou arraste uma imagem'}
                 </DropzoneText>
             )}
         </DropzoneContainer>

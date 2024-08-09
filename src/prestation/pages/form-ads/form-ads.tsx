@@ -6,13 +6,11 @@ import Toggle from "../../components/toggle/toggle";
 import { Input } from "../../components/input/input";
 import ImageUploader from "../../components/ImageUploader/ImageUploader";
 import TextArea from "../../components/TextArea/TextArea";
-import Select from "../../components/Select/Select";
-
-const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" }
-];
+import Select, { OptionsInterface } from "../../components/Select/Select";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { getPerson } from "../../../api/services/person/person-services";
 
 const FormAds: React.FC = () => {
     const { client_id } = useParams();
@@ -20,6 +18,17 @@ const FormAds: React.FC = () => {
     const [active, setActive] = useState<boolean>(false);
     const [description, setDescription] = useState<string>('');
     const [partner, setPartner] = useState<string>('');
+    const [options, setOptions] = useState<OptionsInterface[]>([]);
+
+    const getClients = async () => {
+        try {
+            const response = await getPerson({
+                is_client: true
+            });
+        } catch (error) {
+            throw error
+        }
+    }
 
     // const getAdsAsync = useCallback(async () => {
     //     try {
@@ -72,9 +81,16 @@ const FormAds: React.FC = () => {
                             onChangeValue={(text) => setDescription(text)}
                             value={description} />
                     </LineForm>
+                    <LineForm>
+                        <LocalizationProvider dateAdapter={AdapterDayjs} >
+                            <DatePicker onChange={() => { }} label="Data de inicio" />
+                            <DatePicker onChange={() => { }} label="Data de fim" />
+                        </LocalizationProvider>
+                    </LineForm>
                 </CollumnForm>
                 <CollumnForm>
-                    <LineForm >
+
+                    <LineForm>
                         <ImageUploader />
                     </LineForm>
                 </CollumnForm>

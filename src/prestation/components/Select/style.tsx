@@ -9,6 +9,7 @@ export const Container = styled.div`
     height: 100%;
     flex-direction: column;
     flex: 1;
+    padding-top: 10.5px;
     gap: 5px;
 `;
 
@@ -21,7 +22,8 @@ export const StyledSelect = styled(Select)`
     width: 100%;
     height: 100%;
     padding: 0px;
-
+    border-radius: 0;
+    
     .Select__control {
         height: 100%;
         width: 100%;

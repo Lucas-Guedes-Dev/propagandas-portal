@@ -5,10 +5,10 @@ interface SelectProps {
     value: string;
     description: string;
     onChangeValue: (text: string) => void;
-    options: options[];
+    options: OptionsInterface[];
 }
 
-interface options {
+export interface OptionsInterface {
     value: string;
     label: string;
 }

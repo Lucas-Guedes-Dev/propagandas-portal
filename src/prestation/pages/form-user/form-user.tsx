@@ -20,20 +20,20 @@ const FormUser: React.FC = () => {
             const response = await GetUser({
                 id_user: user_id
             });
-            setUsername(response[0].username)
-            setIsAdmin(response[0].is_admin)
-            setActive(response[0].active)
+            setUsername(response[0].username);
+            setIsAdmin(response[0].is_admin);
+            setActive(response[0].active);
         } catch (error: any) {
-            toast.error('Algo aconteceu de errado, por favor tente novamente mais tarde.')
+            toast.error('Algo aconteceu de errado, por favor tente novamente mais tarde.');
         }
-    }, [username, isAdmin, active]);
+    }, [user_id]);
 
     useEffect(() => {
         if (user_id) {
-            setIsUpdate(true)
+            setIsUpdate(true);
             getUserAsync();
         } else {
-            setIsUpdate(false)
+            setIsUpdate(false);
         }
     }, [getUserAsync, user_id]);
 
@@ -44,20 +44,19 @@ const FormUser: React.FC = () => {
                 is_admin: isAdmin,
                 username: username,
                 password: password
-            }
+            };
 
             if (isUpdate) {
-                toast.success('Foi alterado com sucesso!')
+                toast.success('Foi alterado com sucesso!');
             } else {
-                PostUser(dataUser)
-                toast.success('Foi inserido com sucesso!')
+                await PostUser(dataUser);
+                toast.success('Foi inserido com sucesso!');
             }
 
         } catch (error: any) {
-            toast.error('Não foi possível inserir ou alterar a informação')
+            toast.error('Não foi possível inserir ou alterar a informação');
         }
     }
-
 
     return (
         <Container>
@@ -73,7 +72,6 @@ const FormUser: React.FC = () => {
                 <FooterForm >
                     <LineForm style={{ justifyContent: 'flex-end', paddingRight: 5 }} >
                         <Toggle text="Admin" onCheckedChange={() => setIsAdmin(!isAdmin)} isChecked={isAdmin} />
-
                         <Toggle text="Ativo" onCheckedChange={() => setActive(!active)} isChecked={active} />
                         <ButtonCommit onClick={sendUser}>
                             Enviar
@@ -82,7 +80,7 @@ const FormUser: React.FC = () => {
                 </FooterForm>
             </BodyForm>
         </Container >
-    )
+    );
 }
 
 export default FormUser;

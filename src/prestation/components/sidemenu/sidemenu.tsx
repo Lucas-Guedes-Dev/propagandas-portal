@@ -26,7 +26,7 @@ const SideMenu: React.FC = () => {
                     />
                 </ContainerLogo>
                 <ButtonCollapsed collapsed={collapsed} onClick={() => setCollapsed(!collapsed)}>
-                    <FaChevronLeft color={theme.colors.backgroundLogin} size={30} />
+                    <FaChevronLeft color={theme.colors.background} size={25} />
                 </ButtonCollapsed>
             </Header>
             <Body>
