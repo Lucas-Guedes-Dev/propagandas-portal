@@ -2,9 +2,9 @@ import React from "react";
 import { Container, Label, StyledSelect } from "./style";
 
 interface SelectProps {
-    value: string;
+    value: OptionsInterface;
     description: string;
-    onChangeValue: (text: string) => void;
+    onChangeValue: (value: OptionsInterface) => void;
     options: OptionsInterface[];
 }
 
@@ -23,7 +23,7 @@ const Select: React.FC<SelectProps> = (props) => {
             <StyledSelect
                 value={props.value}
                 options={props.options}
-                onChange={(event: any) => { props.onChangeValue(event.target.value) }}
+                onChange={(event: any) => { props.onChangeValue(event) }}
             />
         </Container>
     )

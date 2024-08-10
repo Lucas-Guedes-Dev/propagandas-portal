@@ -34,8 +34,9 @@ export const Body = styled.tbody`
     justify-content: flex-start;
     flex-direction: column;
     width: 100%;
-    height: 100%;
+    height: 85%;
     overflow-y: auto;
+    overflow-x: hidden;
     background-color: ${(props) => props.theme.colors.cardBackground};   
     color: ${(props) => props.theme.colors.secondBackground};
     border-bottom-left-radius: 16px;
@@ -98,6 +99,7 @@ export const ButtonEditar = styled.button`
     border: 0;
     background-color: transparent;
     color: ${(props) => props.theme.colors.secondSupportColor};
+
     &:active{
         color: ${(props) => props.theme.colors.supportColor};
     }

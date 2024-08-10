@@ -17,7 +17,7 @@ const FormAds: React.FC = () => {
     const [isUpdate, setIsUpdate] = useState<boolean>(false);
     const [active, setActive] = useState<boolean>(false);
     const [description, setDescription] = useState<string>('');
-    const [partner, setPartner] = useState<string>('');
+    const [partner, setPartner] = useState<OptionsInterface>({} as OptionsInterface);
     const [options, setOptions] = useState<OptionsInterface[]>([]);
 
     const getClients = async () => {
@@ -25,18 +25,34 @@ const FormAds: React.FC = () => {
             const response = await getPerson({
                 is_client: true
             });
+
+            if (response) {
+                let newOptions: OptionsInterface[] = [];
+                response.forEach((item) => {
+
+                    newOptions.push({
+                        label: item.name || '',
+                        value: item.id?.toString() || ''
+                    });
+                });
+                console.log(newOptions);
+                setOptions(newOptions);
+            }
+
         } catch (error) {
-            throw error
+            throw error;
         }
-    }
+    };
 
-    // const getAdsAsync = useCallback(async () => {
-    //     try {
+    useEffect(() => {
+        if (client_id) {
+            setIsUpdate(true);
+        } else {
+            setIsUpdate(false);
+        }
 
-    //     } catch (error: any) {
-    //         console.log(error);
-    //     }
-    // }, [client_id]);
+        getClients();
+    }, [client_id]);
 
     const sendClient = async () => {
         try {
@@ -49,16 +65,7 @@ const FormAds: React.FC = () => {
         } catch (error: any) {
             toast.error('Não foi possível inserir ou alterar a informação')
         }
-    }
-
-    useEffect(() => {
-        if (client_id) {
-            // getAdsAsync();
-            setIsUpdate(true)
-        } else {
-            setIsUpdate(false)
-        }
-    }, [client_id]);
+    };
 
     return (
         <Container>
@@ -69,7 +76,7 @@ const FormAds: React.FC = () => {
                 <CollumnForm>
                     <LineForm>
                         <Input label="Nome:" onChangeValue={(text: string) => { console.log('teste') }} type="text" value={''} />
-                        <Select description="Selecione o cliente: " onChangeValue={(text) => { setPartner(text) }} options={options} value={partner} />
+                        <Select description="Selecione o cliente: " onChangeValue={(value) => { setPartner(value) }} options={options} value={partner} />
                     </LineForm>
                     <LineForm>
                         <Input label="URL do Video:" onChangeValue={(text: string) => { console.log('teste') }} type="text" value={''} />
