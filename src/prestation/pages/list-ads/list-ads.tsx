@@ -38,6 +38,8 @@ const ListAds = () => {
     //     navigate(`/editar/cliente/${id}`)
     // }
 
+
+
     return (
         <Container>
             <FilterAccordion title="Ações" onNewClicked={() => { navigate('/novo/propaganda') }} />

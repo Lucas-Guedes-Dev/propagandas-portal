@@ -9,6 +9,8 @@ export const Container = styled.div`
     width: 100%;
     padding-inline: 2%;
     gap: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
 `;
 
 export const ButtonCommit = styled.button`
@@ -35,6 +37,7 @@ export const BodyForm = styled.div`
     flex: 1;
     flex-direction: row;
     width: 100%;
+    height: 100%;
 `;
 
 export const FooterForm = styled.div`

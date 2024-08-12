@@ -11,12 +11,19 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { getPerson } from "../../../api/services/person/person-services";
+import { DataAds } from "../../../core/entities/ads/ads";
+import { CreateAds } from "../../../api/services/ads/ads-service";
 
 const FormAds: React.FC = () => {
     const { client_id } = useParams();
     const [isUpdate, setIsUpdate] = useState<boolean>(false);
     const [active, setActive] = useState<boolean>(false);
     const [description, setDescription] = useState<string>('');
+    const [name, setName] = useState<string>('');
+    const [urlVideo, setUrlVideos] = useState<string>('');
+    const [initDate, setInitDate] = useState<string | null>('');
+    const [endDate, setEndDate] = useState<string | null>('');
+    const [imageB64, setImageB64] = useState<string>('');
     const [partner, setPartner] = useState<OptionsInterface>({} as OptionsInterface);
     const [options, setOptions] = useState<OptionsInterface[]>([]);
 
@@ -35,7 +42,6 @@ const FormAds: React.FC = () => {
                         value: item.id?.toString() || ''
                     });
                 });
-                console.log(newOptions);
                 setOptions(newOptions);
             }
 
@@ -54,11 +60,24 @@ const FormAds: React.FC = () => {
         getClients();
     }, [client_id]);
 
-    const sendClient = async () => {
+    const sendAds = async () => {
+
+        const adsObject: DataAds = {
+            active: active,
+            date_end: endDate,
+            date_start: initDate,
+            image: imageB64,
+            name: name,
+            person_id: Number(partner.value),
+            description: description,
+            video_url: urlVideo
+        }
+
         try {
             if (isUpdate) {
                 toast.success('Foi alterado com sucesso!')
             } else {
+                await CreateAds(adsObject);
                 toast.success('Foi inserido com sucesso!')
             }
 
@@ -75,11 +94,25 @@ const FormAds: React.FC = () => {
             <BodyForm>
                 <CollumnForm>
                     <LineForm>
-                        <Input label="Nome:" onChangeValue={(text: string) => { console.log('teste') }} type="text" value={''} />
-                        <Select description="Selecione o cliente: " onChangeValue={(value) => { setPartner(value) }} options={options} value={partner} />
+                        <Input
+                            label="Nome:"
+                            onChangeValue={(text: string) => { setName(text) }}
+                            type="text"
+                            value={name}
+                        />
+                        <Select
+                            description="Selecione o cliente: "
+                            onChangeValue={(value) => { setPartner(value) }}
+                            options={options}
+                            value={partner}
+                        />
                     </LineForm>
                     <LineForm>
-                        <Input label="URL do Video:" onChangeValue={(text: string) => { console.log('teste') }} type="text" value={''} />
+                        <Input
+                            label="URL do Video:"
+                            onChangeValue={(text: string) => { setUrlVideos(text) }}
+                            type="text" value={urlVideo}
+                        />
                     </LineForm>
                     <LineForm style={{ flex: 2 }}>
                         <TextArea
@@ -90,15 +123,20 @@ const FormAds: React.FC = () => {
                     </LineForm>
                     <LineForm>
                         <LocalizationProvider dateAdapter={AdapterDayjs} >
-                            <DatePicker onChange={() => { }} label="Data de inicio" />
-                            <DatePicker onChange={() => { }} label="Data de fim" />
+                            <DatePicker
+                                onChange={(date) => setInitDate(date?.toISOString() || null)}
+                                label="Data de inicio"
+                            />
+                            <DatePicker
+                                onChange={(date) => setEndDate(date?.toISOString() || null)}
+                                label="Data de fim"
+                            />
                         </LocalizationProvider>
                     </LineForm>
                 </CollumnForm>
                 <CollumnForm>
-
                     <LineForm>
-                        <ImageUploader />
+                        <ImageUploader onImageDrop={(image) => setImageB64(image || '')} />
                     </LineForm>
                 </CollumnForm>
             </BodyForm>
@@ -106,7 +144,7 @@ const FormAds: React.FC = () => {
             <FooterForm>
                 <LineForm style={{ justifyContent: 'flex-end', paddingRight: 5 }} >
                     <Toggle text="Ativo" onCheckedChange={() => setActive(!active)} isChecked={active} />
-                    <ButtonCommit onClick={sendClient}>
+                    <ButtonCommit onClick={sendAds}>
                         Enviar
                     </ButtonCommit>
                 </LineForm>
