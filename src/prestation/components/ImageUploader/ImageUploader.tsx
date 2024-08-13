@@ -12,10 +12,11 @@ const ImageUploader: React.FC<ImageUploader> = (props) => {
     const onDrop = useCallback((acceptedFiles: File[]) => {
         const reader = new FileReader();
 
-        reader.onload = () => setImage(reader.result as string);
+        reader.onload = () => {
+            setImage(reader.result as string);
+            props.onImageDrop(reader.result as string)
+        };
         reader.readAsDataURL(acceptedFiles[0]);
-
-        props.onImageDrop(image || null)
     }, []);
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({

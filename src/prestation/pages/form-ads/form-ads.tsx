@@ -61,7 +61,7 @@ const FormAds: React.FC = () => {
     }, [client_id]);
 
     const sendAds = async () => {
-
+        console.log(imageB64, 'ola')
         const adsObject: DataAds = {
             active: active,
             date_end: endDate,
