@@ -1,12 +1,12 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { DropzoneContainer, DropzoneText, ImagePreview } from './style';
 
-export interface ImageUploader {
-    onImageDrop: (imageB64: string | null) => void
+interface ImageUploaderProps {
+    onImageDrop: (imageB64: string) => void;
 }
 
-const ImageUploader: React.FC<ImageUploader> = (props) => {
+const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageDrop }) => {
     const [image, setImage] = useState<string | null>(null);
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -14,10 +14,15 @@ const ImageUploader: React.FC<ImageUploader> = (props) => {
 
         reader.onload = () => {
             setImage(reader.result as string);
-            props.onImageDrop(reader.result as string)
         };
         reader.readAsDataURL(acceptedFiles[0]);
     }, []);
+
+    useEffect(() => {
+        if (image) {
+            onImageDrop(image);
+        }
+    }, [onImageDrop, image]);
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
