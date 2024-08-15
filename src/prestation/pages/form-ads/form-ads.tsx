@@ -12,10 +12,12 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { getPerson } from "../../../api/services/person/person-services";
 import { DataAds } from "../../../core/entities/ads/ads";
-import { CreateAds } from "../../../api/services/ads/ads-service";
+import { CreateAds, GetAds } from "../../../api/services/ads/ads-service";
+import { PersonParam } from "../../../core/entities/person/person";
+import dayjs from "dayjs";
 
 const FormAds: React.FC = () => {
-    const { client_id } = useParams();
+    const { ads_id } = useParams();
     const [isUpdate, setIsUpdate] = useState<boolean>(false);
     const [active, setActive] = useState<boolean>(false);
     const [description, setDescription] = useState<string>('');
@@ -26,14 +28,21 @@ const FormAds: React.FC = () => {
     const [imageB64, setImageB64] = useState<string>('');
     const [partner, setPartner] = useState<OptionsInterface>({} as OptionsInterface);
     const [options, setOptions] = useState<OptionsInterface[]>([]);
+    const [clientId, setClientId] = useState<string>();
 
     const getClients = async () => {
         try {
-            const response = await getPerson({
+            let param: PersonParam = {
                 is_client: true
-            });
+            }
 
-            if (response) {
+            if (clientId) {
+                param.id = clientId
+            }
+
+            const response = await getPerson(param);
+
+            if (response && !clientId) {
                 let newOptions: OptionsInterface[] = [];
                 response.forEach((item) => {
 
@@ -43,6 +52,14 @@ const FormAds: React.FC = () => {
                     });
                 });
                 setOptions(newOptions);
+            } else if (response && clientId) {
+
+                let newOption: OptionsInterface = {
+                    label: response[0].name || "",
+                    value: response[0].id?.toString() || ''
+                }
+
+                setPartner(newOption);
             }
 
         } catch (error) {
@@ -50,15 +67,45 @@ const FormAds: React.FC = () => {
         }
     };
 
+    const getAdsAsync = async () => {
+        try {
+            const response = await GetAds({
+                id: ads_id
+            });
+            console.log(response)
+            if (response.length > 0) {
+                setActive(response[0].active)
+                setImageB64(response[0].image)
+                setInitDate(response[0].date_start)
+                setEndDate(response[0].date_end)
+                setUrlVideos(response[0].video_url)
+                setName(response[0].name)
+                setDescription(response[0].description)
+                setClientId(response[0].person_id.toString())
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
+
     useEffect(() => {
-        if (client_id) {
+        if (ads_id) {
             setIsUpdate(true);
+            getAdsAsync();
         } else {
             setIsUpdate(false);
         }
 
         getClients();
-    }, [client_id]);
+    }, [ads_id]);
+
+    useEffect(() => {
+        getClients()
+    }, [clientId])
+
+    const convertDate = (date: string) => {
+        return dayjs(date);
+    }
 
     const sendAds = async () => {
 
@@ -124,10 +171,12 @@ const FormAds: React.FC = () => {
                     <LineForm>
                         <LocalizationProvider dateAdapter={AdapterDayjs} >
                             <DatePicker
+                                value={convertDate(initDate || '')}
                                 onChange={(date) => setInitDate(date?.toISOString() || null)}
                                 label="Data de inicio"
                             />
                             <DatePicker
+                                value={convertDate(endDate || '')}
                                 onChange={(date) => setEndDate(date?.toISOString() || null)}
                                 label="Data de fim"
                             />
@@ -136,7 +185,7 @@ const FormAds: React.FC = () => {
                 </CollumnForm>
                 <CollumnForm>
                     <LineForm>
-                        <ImageUploader onImageDrop={(image) => setImageB64(image || '')} />
+                        <ImageUploader imageProp={imageB64 || null} onImageDrop={(image) => setImageB64(image || '')} />
                     </LineForm>
                 </CollumnForm>
             </BodyForm>

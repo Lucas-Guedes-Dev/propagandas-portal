@@ -7,8 +7,8 @@ import { GetAds } from "../../../api/services/ads/ads-service";
 import { AdsResponse } from "../../../core/entities/ads/ads";
 
 const columns = [
-    { key: 'nome', header: 'Nome' },
-    { key: 'image', header: 'Image' },
+    { key: 'name', header: 'Nome' },
+    { key: 'description', header: 'Descrição' },
     { key: 'active', header: 'Ativo' },
     { key: 'id', header: 'Editar' },
 ];
@@ -34,16 +34,14 @@ const ListAds = () => {
         getAdsAsync();
     }, [])
 
-    // const onEditClicked = (id: number) => {
-    //     navigate(`/editar/cliente/${id}`)
-    // }
-
-
+    const onEditClicked = (id: number) => {
+        navigate(`/editar/propaganda/${id}`)
+    }
 
     return (
         <Container>
             <FilterAccordion title="Ações" onNewClicked={() => { navigate('/novo/propaganda') }} />
-            <Table onEdit={(id) => console.log(id)} columns={columns} lines={ads} />
+            <Table onEdit={(id) => onEditClicked(id)} columns={columns} lines={ads} />
         </Container>
     )
 }

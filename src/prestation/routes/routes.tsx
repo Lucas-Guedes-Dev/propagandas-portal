@@ -78,6 +78,12 @@ const Router: React.FC = () => {
                         </Layout>
                     } />
 
+                    <Route path="/editar/propaganda/:ads_id" element={
+                        <Layout>
+                            <FormAds />
+                        </Layout>
+                    } />
+
                     <Route path="/novo/usuario" element={
                         <Layout>
                             <FormUser />

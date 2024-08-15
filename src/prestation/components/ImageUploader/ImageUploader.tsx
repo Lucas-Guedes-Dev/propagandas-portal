@@ -4,10 +4,11 @@ import { DropzoneContainer, DropzoneText, ImagePreview } from './style';
 
 interface ImageUploaderProps {
     onImageDrop: (imageB64: string) => void;
+    imageProp: string | null;
 }
 
-const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageDrop }) => {
-    const [image, setImage] = useState<string | null>(null);
+const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageDrop, imageProp }) => {
+    const [image, setImage] = useState<string | null>(imageProp);
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
         const reader = new FileReader();
